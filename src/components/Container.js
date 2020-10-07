@@ -1,8 +1,9 @@
 import React from 'react';
 import TodoList from './TodoList';
+import Map from './Map';
 
 const Container = () => {
-  const [openTab, setOpenTab] = React.useState(1);
+  const [openTab, setOpenTab] = React.useState(2);
   return (
     <>
       <ul className="flex">
@@ -48,16 +49,18 @@ const Container = () => {
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-                 <TodoList/>
+                  <TodoList />
                 </div>
                 <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
-                  <p>
-                    Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one
-                    customer service with robust ideas.
-                    <br />
-                    <br />
-                    Dynamically innovate resource-leveling customer service for state of the art customer service.
-                  </p>
+                  <div style={{ height: '400px', width: '100%' }}>
+                    <Map center={{ lat: 6.1942598, lng: -75.6035291 }} zoom={16} />
+                    {/* <Map
+                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`}
+                    containerElement={<div style={{ height: '400px' }}></div>}
+                    mapElement={<div style={{ height: '100%' }}></div>}
+                    loadingElement={<p>Loading...</p>}
+                  /> */}
+                  </div>
                 </div>
               </div>
             </div>
