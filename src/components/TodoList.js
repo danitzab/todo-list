@@ -1,37 +1,37 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
+// Components
 import AddTodo from './AddTodo';
-import Todo  from './Todo';
+import Todo from './Todo';
 
 const TodoList = ({ todos }) => {
-  console.log('todos', todos);
   return (
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
       <div className="p-6 m-4 w-full">
-        <div className="mb-4">
+        <div className="mb-8">
           <AddTodo />
         </div>
         <div>
-          <strong>To Do</strong>
-          {todos.filter((element) => !element.finished).map((element, index) => (
-            <Todo key={index} {...element} />
-          ))}
+          <h1 className="font-bold bg-gray-200 rounded p-2 text-gray-700">To Do</h1>
+          <hr className="mb-6" />
+          {todos
+            .filter((element) => !element.finished)
+            .map((element, index) => (
+              <Todo key={index} {...element} />
+            ))}
         </div>
         <div>
-          <strong>Done</strong>
-          {todos.filter((element) => element.finished).map((element, index) => (
-            <Todo key={index} {...element} />
-          ))}
+          <h1 className="font-bold mt-8 bg-gray-200 rounded p-2 text-gray-700">Done</h1>
+          <hr className="mb-6" />
+          {todos
+            .filter((element) => element.finished)
+            .map((element, index) => (
+              <Todo key={index} {...element} />
+            ))}
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    todos: state.todos,
-  };
-};
-
-export default connect(mapStateToProps, null)(TodoList);
+export default TodoList;

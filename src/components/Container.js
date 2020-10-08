@@ -1,17 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Redux
+import { connect } from 'react-redux';
+
+// Components
 import TodoList from './TodoList';
 import Map from './Map';
 
-const Container = () => {
-  const [openTab, setOpenTab] = React.useState(2);
+// Icons
+import paper from '../assests/icons/paper.svg';
+import map from '../assests/icons/map.svg';
+
+const Container = ({ todos, currentLocation }) => {
+  const [openTab, setOpenTab] = useState(1);
+  const [location, setLocation] = useState([]);
+
+  const getLocations = () => {
+    setLocation(
+      todos.map((element) => {
+        return {
+          location: element.location,
+          text: element.text,
+        };
+      })
+    );
+  };
+
+  useEffect(() => {
+    getLocations();
+  }, [todos]);
+
   return (
     <>
-      <ul className="flex">
+      <ul className="flex mx-4">
         <li className="flex-1 mr-2">
           <a
             className={
               'text-xs text-center font-bold uppercase px-5 py-3 rounded block ' +
-              (openTab === 1 ? 'text-white bg-blue-500' : 'text-blue-500 bg-white')
+              (openTab === 1 ? 'text-white bg-blue-900' : 'text-blue-500 bg-blue-200')
             }
             onClick={(e) => {
               e.preventDefault();
@@ -21,6 +47,7 @@ const Container = () => {
             href="#link1"
             role="tablist"
           >
+            <img className="inline-flex mr-2 mb-2" src={paper} alt="paper" />
             Todo List
           </a>
         </li>
@@ -28,7 +55,7 @@ const Container = () => {
           <a
             className={
               'text-xs text-center font-bold uppercase px-5 py-3 rounded block ' +
-              (openTab === 2 ? 'text-white bg-blue-500' : 'text-blue-500 bg-white')
+              (openTab === 2 ? 'text-white bg-blue-900' : 'text-blue-500 bg-blue-200')
             }
             onClick={(e) => {
               e.preventDefault();
@@ -38,6 +65,7 @@ const Container = () => {
             href="#link1"
             role="tablist"
           >
+            <img className="inline-flex mr-2 mb-2" src={map} alt="map" />
             Map
           </a>
         </li>
@@ -49,17 +77,11 @@ const Container = () => {
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? 'block' : 'hidden'} id="link1">
-                  <TodoList />
+                  <TodoList todos={todos} />
                 </div>
                 <div className={openTab === 2 ? 'block' : 'hidden'} id="link2">
                   <div style={{ height: '400px', width: '100%' }}>
-                    <Map center={{ lat: 6.1942598, lng: -75.6035291 }} zoom={16} />
-                    {/* <Map
-                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`}
-                    containerElement={<div style={{ height: '400px' }}></div>}
-                    mapElement={<div style={{ height: '100%' }}></div>}
-                    loadingElement={<p>Loading...</p>}
-                  /> */}
+                    <Map center={{ lat: currentLocation.lat, lng: currentLocation.lng }} locations={location} zoom={6} />
                   </div>
                 </div>
               </div>
@@ -71,4 +93,11 @@ const Container = () => {
   );
 };
 
-export default Container;
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todosReducer,
+    currentLocation: state.locationReducer,
+  };
+};
+
+export default connect(mapStateToProps, null)(Container);

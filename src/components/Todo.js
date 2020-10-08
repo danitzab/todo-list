@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { deleteTodo, updateTodo } from '../actions';
 
-const Todo = ({ id, text, finished, deleteTodo, updateTodo }) => {
+// Redux
+import { connect } from 'react-redux';
+import { deleteTodo, updateTodo } from '../actions/todoActions';
+
+// Icons
+import deleteIcon from '../assests/icons/delete.svg';
+import saveIcon from '../assests/icons/save.svg';
+import updateIcon from '../assests/icons/update.svg';
+
+const Todo = ({ id, text, finished, location, dispatchDeleteTodo, dispatchUpdateTodo }) => {
   const [isUpdate, setIsUpdat] = useState(false);
   const [input, setInput] = useState(text);
 
-  const handlechecked = (e) => {
-    updateTodo(id, text, !finished);
+  const handlechecked = () => {
+    dispatchUpdateTodo(id, text, !finished, location);
   };
 
   const handleInput = (e) => {
     setInput(e.target.value);
   };
 
-  const handleDeletCheckbox = () => {
-    deleteTodo(id);
+  const handleDelet = () => {
+    dispatchDeleteTodo(id);
   };
 
   const handleUpdate = () => {
     if (isUpdate) {
-      updateTodo(id, input, false);
+      dispatchUpdateTodo(id, input, false);
     }
     setIsUpdat(!isUpdate);
   };
@@ -47,22 +54,25 @@ const Todo = ({ id, text, finished, deleteTodo, updateTodo }) => {
           </label>
         )}
         {finished ? (
-          <button className="flex-no-shrink py-2 px-4 ml-2 rounded text-white bg-red-500  hover:bg-red-700" onClick={handleDeletCheckbox}>
-            X
+          <button className="flex-no-shrink py-2 px-4 ml-2 rounded text-white bg-red-500  hover:bg-red-700" onClick={handleDelet}>
+            <img src={deleteIcon} alt="add" />
           </button>
         ) : (
           <>
             <button
               className={
-                'flex-no-shrink py-2 px-4 ml-2 rounded text-white ' +
-                (isUpdate ? 'bg-blue-500  hover:bg-blue-700' : ' bg-green-500  hover:bg-green-700')
+                'flex-no-shrink py-2 px-4 ml-2 rounded text-white focus:outline-none ' +
+                (isUpdate ? 'bg-blue-800 hover:bg-blue-900' : ' bg-blue-500  hover:bg-blue-600')
               }
               onClick={handleUpdate}
             >
-              {isUpdate ? 'Save' : 'Edit'}
+              {isUpdate ? <img src={saveIcon} alt="save" /> : <img src={updateIcon} alt="update" />}
             </button>
-            <button className="flex-no-shrink py-2 px-4 ml-2 rounded text-white bg-red-500  hover:bg-red-700" onClick={handleDeletCheckbox}>
-              X
+            <button
+              className="flex-no-shrink py-2 px-4 ml-2 rounded text-white bg-red-500  hover:bg-red-700 focus:outline-none"
+              onClick={handleDelet}
+            >
+              <img src={deleteIcon} alt="delet" />
             </button>
           </>
         )}
@@ -72,8 +82,8 @@ const Todo = ({ id, text, finished, deleteTodo, updateTodo }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteTodo: (id) => dispatch(deleteTodo(id)),
-  updateTodo: (id, text, finished) => dispatch(updateTodo(id, text, finished)),
+  dispatchDeleteTodo: (id) => dispatch(deleteTodo(id)),
+  dispatchUpdateTodo: (id, text, finished, location) => dispatch(updateTodo(id, text, finished, location)),
 });
 
 export default connect(null, mapDispatchToProps)(Todo);

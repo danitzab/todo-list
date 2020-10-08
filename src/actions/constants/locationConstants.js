@@ -1,0 +1,2 @@
+// Actions
+export const SAVE_CURRENT_LOCATION = 'SAVE_CURRENT_LOCATION';

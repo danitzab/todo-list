@@ -1,50 +1,18 @@
 import { combineReducers } from 'redux';
+import todosReducer from './todosReducer';
+import locationReducer from './locationReducer';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-const initialState = [
-  {
-    id: 1,
-    text: 'Hola soy Dani',
-    finished: false,
-  },
-  {
-    id: 2,
-    text: 'Hola soy Dani 2',
-    finished: true,
-  },
-];
-
-const todos = (state = initialState, action) => {
-  switch (action.type) {
-    case 'LOAD_TODOS':
-      return state;
-    case 'ADD_TODO':
-      return [
-        ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false,
-        },
-      ];
-    case 'UPDATE_TODO':
-        console.log('action', action);
-      return state.map((element) => {
-        if (element.id === action.id) {
-          return {
-            ...element,
-            text: action.text,
-            finished: action.finished,
-          };
-        }
-        return element;
-      });
-    case 'DELETE_TODO':
-      return state.filter((element) => element.id !== action.id);
-    default:
-      return state;
-  }
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['todosReducer', 'locationReducer'],
 };
 
-export default combineReducers({
-  todos,
+const rootReducer = combineReducers({
+  todosReducer,
+  locationReducer
 });
+
+export default persistReducer(persistConfig, rootReducer);
