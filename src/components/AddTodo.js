@@ -16,8 +16,10 @@ const AddTodo = ({ dispatchAddTodo, currentLocation }) => {
 
   const handleButton = (e) => {
     e.preventDefault();
-    dispatchAddTodo(input, currentLocation);
-    setInput('');
+    if (input) {
+      dispatchAddTodo(input, currentLocation);
+      setInput('');
+    }
   };
 
   return (
@@ -26,7 +28,6 @@ const AddTodo = ({ dispatchAddTodo, currentLocation }) => {
         type="search"
         className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
         placeholder="Add Todo"
-        pattern="[A-Za-z0-9]{1,15}"
         value={input}
         onChange={handleInput}
       />

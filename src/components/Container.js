@@ -12,7 +12,7 @@ import paper from '../assests/icons/paper.svg';
 import map from '../assests/icons/map.svg';
 
 const Container = ({ todos, currentLocation }) => {
-  const [openTab, setOpenTab] = useState(1);
+  const [openTab, setOpenTab] = useState(2);
   const [location, setLocation] = useState([]);
 
   const getLocations = () => {

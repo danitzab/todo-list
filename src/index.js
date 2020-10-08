@@ -11,7 +11,7 @@ import App from './App';
 
 // Styles
 import './styles/tailwind.css';
-import './styles/index.css';
+import './styles/style.css';
 
 
 ReactDOM.render(

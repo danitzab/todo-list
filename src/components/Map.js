@@ -5,7 +5,10 @@ import { GOOGLE_MAP_API_KEY } from '../credentials';
 const Marker = ({ text, color }) => {
   return (
     <div>
-      <div className="pin bounce" style={{ backgroundColor: color, cursor: 'pointer' }} title={text} />
+      <div class="tooltip">
+      <div className=" tooltip pin bounce" style={{ backgroundColor: color, cursor: 'pointer' }}  />
+        <span class="tooltiptext">{text}</span>
+      </div>
       <div className="pulse" />
     </div>
   );

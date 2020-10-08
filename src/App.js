@@ -9,19 +9,18 @@ import Container from './components/Container';
 import Footer from './components/Footer';
 
 const App = ({ dispatchSaveCurrentLocation }) => {
-
   // Get user current location
   navigator.geolocation.getCurrentPosition(function (position) {
     dispatchSaveCurrentLocation(position.coords.latitude, position.coords.longitude);
   });
 
   return (
-    <div>
-      <div className="container mx-auto my-6">
+    <>
+      <div className="container-app container mx-auto my-6">
         <Container />
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
