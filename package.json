@@ -16,7 +16,7 @@
     "uuid": "^8.3.1"
   },
   "scripts": {
-    "build:tailwind": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
+    "build:tailwind": "tailwind build src/styles/style.css -o src/styles/tailwind.css",
     "prestart": "npm run build:tailwind",
     "prebuild": "npm run build:tailwind",
     "start": "react-scripts start",

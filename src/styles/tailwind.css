@@ -22530,6 +22530,10 @@ video {
           animation: bounce 1s infinite;
 }
 
+.container-app {
+  min-height: calc(100vh - 233px);
+}
+
 .marker {
   position: absolute;
   top: 50%;
@@ -22543,9 +22547,6 @@ video {
       -ms-user-select: none;
           user-select: none;
   transform: translate(-50%, -50%);
-  /* &:hover {
-      z-index: 1;
-    } */
 }
 
 .pin {
@@ -22561,7 +22562,7 @@ video {
 }
 
 .pin:after {
-  content: "";
+  content: '';
   width: 14px;
   height: 14px;
   margin: 8px 0 0 8px;
@@ -22593,7 +22594,7 @@ video {
 }
 
 .pulse:after {
-  content: "";
+  content: '';
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -22661,15 +22662,54 @@ video {
   }
 }
 
-.footer {
+/* Tooltip container */
+
+.tooltip {
   position: relative;
-  width: 100%;
-  height: 200px;
-  bottom: 0;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
-.footer-higth {
-  min-height: calc(100vh - 100px);
+/* Tooltip text */
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 300%;
+  left: 50%;
+  margin-left: -69px;
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+  z-index: 1000;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (min-width: 640px) {
@@ -110175,4 +110215,3 @@ video {
             animation: bounce 1s infinite;
   }
 }
-
